@@ -1,15 +1,23 @@
-export default class Game {
-    static gameId = 1;
-    constructor(id, title, description, price, quantity) {
-        this.id = id || Game.gameId++;
-        this.title = title;
-        this.description = description;
-        this.price = price;
-        this.quantity = quantity;
-        this.achats = [];
-    }
+import mongoose from "mongoose";
+const { Schema, model } = mongoose;
 
-    addAchat(achat) {
-        this.achats.push(achat);
+const gameSchema = new Schema({
+    title: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    price: {
+        type: Number,
+        required: true
+    },
+    quantity: {
+        type: Number,
+        required: true
     }
-}
+});
+
+export default model("Game", gameSchema);

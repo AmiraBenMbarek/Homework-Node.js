@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.route('/authenticate').post(authenticate);
 router.route('/createUser').post(createUser);
-router.route('/updateProfile').put(updateProfile);
+router.route('/updateProfile/:id').put(updateProfile);
 
 export default router;

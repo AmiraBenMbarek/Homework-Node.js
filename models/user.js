@@ -1,14 +1,19 @@
-export default class User {
-    static userId = 1;
-    constructor(id, username, password, wallet) {
-        this.id = id || User.userId++;
-        this.username = username;
-        this.password = password;
-        this.wallet = wallet;
-        this.achats = [];
-    }
+import mongoose from "mongoose";
+const { Schema, model } = mongoose;
 
-    addAchat(achat) {
-        this.achats.push(achat);
+const userSchema = new Schema({
+    username: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    wallet: {
+        type: Number,
+        required: true
     }
-}
+});
+
+export default model("User", userSchema);
