@@ -1,5 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import morgan from 'morgan';
+import cors from 'cors';
 
 const app = express();
 
@@ -21,6 +23,8 @@ mongoose.connect(`mongodb://0.0.0.0:27017/${databaseName}`)
         console.log(err)
     })
 
+app.use(morgan("dev"))
+app.use(cors())
 app.use(express.json())
 
 app.use('/user', userRoute)

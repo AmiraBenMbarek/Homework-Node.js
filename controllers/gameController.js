@@ -2,9 +2,10 @@ import Game from '../models/game.js';
 import User from '../models/user.js';
 
 export const addNewGame = (req, res) => {
-    const { title, description, price, quantity, achats } = req.body;
+    const { title, description, price, quantity } = req.body;
+    const image = req.file.filename
 
-    const newGame = new Game({ title, description, price, quantity, achats });
+    const newGame = new Game({ title, description, price, quantity, image });
 
     newGame.save()
         .then(savedGame => {
@@ -67,8 +68,7 @@ export function buyGame(req, res) {
 };
 
 export function updateGame(req, res) {
-
-    Game.findByIdAndUpdate(req.params.id, req.body)
+    Game.findByIdAndUpdate(req.params.id, req.body, { new: true })
         .then(game => {
             res.status(200).json(game);
         })

@@ -17,14 +17,15 @@ export function authenticate(req, res) {
 };
 
 export function createUser(req, res) {
-    const { username, password, wallet, achats } = req.body;
+    const { username, password, wallet } = req.body;
+    const avatar = req.file.filename
 
     User.findOne({ username })
         .then(exists => {
             if (exists) {
                 return res.status(400).json({ message: 'Username already exists' });
             }
-            const user = new User({ username, password, wallet, achats });
+            const user = new User({ username, password, wallet, avatar });
 
             return user.save()
                 .then(user => {
@@ -42,7 +43,7 @@ export function createUser(req, res) {
 };
 
 export const updateProfile = (req, res) => {
-    User.findByIdAndUpdate(req.params.id, req.body)
+    User.findByIdAndUpdate(req.params.id, req.body, { new: true })
         .then(docs => {
             res.status(200).json({ message: 'update successful!', data: docs });
         }).catch(err => {
